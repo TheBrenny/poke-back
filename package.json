@@ -1,0 +1,35 @@
+{
+  "name": "pokeback",
+  "version": "1.0.0",
+  "description": "Win the Facebook poke war with this auto-poker.",
+  "bin": {
+    "pokeback": "poke.js"
+  },
+  "main": "poke.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TheBrenny/pokeback.git"
+  },
+  "keywords": [
+    "poke",
+    "facebook",
+    "fb",
+    "war",
+    "puppeteer",
+    "chrome"
+  ],
+  "author": "TheBrenny <iam+dev@justbrenny.me>",
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/TheBrenny/pokeback/issues"
+  },
+  "homepage": "https://github.com/TheBrenny/pokeback#readme",
+  "dependencies": {
+    "puppeteer": "^9.1.1",
+    "readline-sync": "^1.4.10",
+    "yargs": "^17.0.1"
+  }
+}
