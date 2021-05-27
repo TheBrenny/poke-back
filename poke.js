@@ -17,6 +17,12 @@ const yargs = require("yargs")(process.argv.slice(2))
                 alias: ["i"],
                 desc: "Names of those that you don't wish to poke back."
             })
+            .option("exactly", {
+                array: true,
+                type: "string",
+                alias: ["e"],
+                desc: "Names of that that you ONLY wish to poke back."
+            })
             .option("timeout", {
                 type: "number",
                 alias: ["t"],
@@ -71,6 +77,7 @@ async function doLogin(user, pass, page) {
 }
 
 const ignore = yargs.ignore || [];
+const exactly = yargs.exactly || [];
 const domTargets = {
     name: "a.oajrlxb2.g5ia77u1.qu0x051f.esr5mh6w.e9989ue4.r7d6kgcz.rq0escxv.nhd2j8a9.nc684nl6.p7hjln8o.kvgmc6g5.cxmmr5t8.oygrvhab.hcukyx3x.jb3vyjys.rz4wbd8a.qt6c0cv9.a8nywdso.i1ao9s8h.esuyzwwr.f1sip0of.lzcic4wl.oo9gr5id.gpro0wi8.lrazzd5p",
     btn: "parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.children",
@@ -83,6 +90,8 @@ async function pokeBack(page) {
     for (let n of names) {
         let ntc = await text(n);
         if (ignore.includes(ntc)) continue;
+
+        if(exactly.length > 0 && !exactly.includes(ntc)) continue;
 
         btn = await n.evaluateHandle(getBtn, domTargets.btn);
         let pbtc = await text(btn);
@@ -123,6 +132,7 @@ if (require.main === module) {
         }
 
         if (ignore.length > 0) console.log("Ignoring:\n  " + ignore.join("\n  "));
+        if (exactly.length > 0) console.log("Only poking:\n  " + exactly.join("\n  "));
         console.log("Running!");
 
         pokeBack(page);
