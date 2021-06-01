@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 const yargs = require("yargs")(process.argv.slice(2))
     .scriptName("pokeback")
     .command("$0 [username|email] [password]", "Create a pokeback instance using an optional username and password", (y) => {
