@@ -1,7 +1,7 @@
 # Pokeback
 > Win that poke war. Poke them back.
 
-Automatically pokes back other Facebookers that have poked you!
+Automatically pokes back other Facebookers that have poked you! Target or ignore specific people as well!
 
 ## Installation
 

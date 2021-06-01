@@ -17,13 +17,15 @@ const yargs = require("yargs")(process.argv.slice(2))
                 array: true,
                 type: "string",
                 alias: ["i"],
-                desc: "Names of those that you don't wish to poke back."
+                desc: "Names of those that you don't wish to poke back.",
+                conflicts: "exactly"
             })
             .option("exactly", {
                 array: true,
                 type: "string",
                 alias: ["e"],
-                desc: "Names of that that you ONLY wish to poke back."
+                desc: "Names of that that you ONLY wish to poke back.",
+                conflicts: "ignore"
             })
             .option("timeout", {
                 type: "number",
@@ -86,9 +88,12 @@ const domTargets = {
 };
 const getBtn = (e, btnPath) => (console.log(e), console.log(btnPath), btnPath.split(".").reduce((a, c) => a[c], e)[1]);
 async function pokeBack(page) {
-    let names = (await page.$$(domTargets.name));
+    process.stdout.write(".");
 
+    let names = (await page.$$(domTargets.name));
+    
     let btn;
+    let poked = [];
     for (let n of names) {
         let ntc = await text(n);
         if (ignore.includes(ntc)) continue;
@@ -98,10 +103,11 @@ async function pokeBack(page) {
         btn = await n.evaluateHandle(getBtn, domTargets.btn);
         let pbtc = await text(btn);
         if (pbtc === "Poke Back") {
-            console.log("Poking " + ntc + ".");
+            poked.push(ntc);
             await btn.click();
         }
     }
+    if(poked.length) console.log("\nPoking " + poked.join(" and ") + ".");
 
     setTimeout(pokeBack.bind(this, page), yargs.timeout * 1000);
 }
