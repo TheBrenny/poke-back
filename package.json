@@ -1,6 +1,6 @@
 {
   "name": "pokeback",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Win the Facebook poke war with this auto-poker.",
   "bin": {
     "pokeback": "poke.js"
